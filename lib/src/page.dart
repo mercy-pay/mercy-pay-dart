@@ -2,7 +2,10 @@
 /// page, fetched as you go.
 class Page {
   Page(Map<String, dynamic> body, this._fetch, this._params)
-      : data = ((body['data'] as List?) ?? const []).map((row) => Map<String, dynamic>.from(row as Map)).toList(),
+      : data = [
+          for (final row in body['data'] is List ? body['data'] as List : const [])
+            if (row is Map) Map<String, dynamic>.from(row),
+        ],
         hasMore = body['has_more'] == true,
         nextCursor = body['next_cursor'] as String?;
 
