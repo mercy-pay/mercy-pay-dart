@@ -20,8 +20,8 @@ void main() {
       final operationId = (definition as Map)['operationId'] as String;
       count++;
       test('$operationId calls ${verb.toUpperCase()} $path', () async {
-        final operation = operations[operationId];
-        expect(operation, isNotNull, reason: 'aucune méthode pour $operationId');
+        expect(operations[operationId], isNotNull, reason: 'aucune méthode pour $operationId');
+        final operation = operations[operationId]!;
         final (client, requests) = fakeClient();
         final ids = [for (final name in operation['ids'] as List) 'id_$name'];
         final method = operation['method'] == 'all' ? 'list' : operation['method'] as String;
