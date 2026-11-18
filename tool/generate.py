@@ -98,7 +98,7 @@ for service, items in services.items():
             extra = ', idempotencyKey' if o['http'] == 'POST' else ''
             out.append(f"  Future<Map<String, dynamic>> {method}({sig}) => _object('{o['http']}', {path}, params{extra});")
         out.append('')
-    extras = os.path.join(root, 'tool/extras', f'{cls}.dart')
+    extras = os.path.join(root, 'tool/extras', f'{cls}.snippet')
     if os.path.exists(extras):
         out += open(extras).read().rstrip().split('\n')
         out.append('')
