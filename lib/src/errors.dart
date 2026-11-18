@@ -79,3 +79,10 @@ class ConnectionException extends MercyPayException {
 class SignatureVerificationException extends MercyPayException {
   SignatureVerificationException(super.message);
 }
+
+/// The wait ended before the object reached a final status. Its last state is in [last].
+class WaitTimeoutException extends MercyPayException {
+  WaitTimeoutException(super.message, this.last);
+
+  final Map<String, dynamic> last;
+}

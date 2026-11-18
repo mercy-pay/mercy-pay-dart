@@ -55,6 +55,7 @@ Future<void> _call(dynamic client, String service, String method, List<String> i
     'PaymentLink' => client.paymentLinks,
     'Plan' => client.plans,
     'Customer' => client.customers,
+    'EmbedDomain' => client.embedDomains,
     'Subscription' => client.subscriptions,
     'Invoice' => client.invoices,
     'Event' => client.events,
@@ -97,6 +98,8 @@ Function _method(dynamic resource, String name) {
     'rotateSecret' => resource.rotateSecret,
     'test' => resource.test,
     'triggerEvent' => resource.triggerEvent,
+    'verify' => resource.verify,
+    'mobileMoneyNumbers' => resource.mobileMoneyNumbers,
     _ => throw StateError('méthode inconnue $name'),
   };
 }
