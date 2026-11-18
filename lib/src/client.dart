@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'errors.dart';
 import 'resources.dart';
 
-const version = '0.1.0';
+const version = '0.2.0';
 
 /// The entry point: one client per API key. For your Dart server only: an app never holds
 /// the key (see mercy_pay_flutter).
@@ -43,10 +43,14 @@ class MercyPay {
   final http.Client _http;
   final Future<void> Function(Duration) _sleep;
 
+  /// Waits between two reads (waitForFinalStatus). Replaced in tests through `sleep`.
+  Future<void> pause(Duration duration) => _sleep(duration);
+
   late final account = AccountResource(this);
   late final billingPortal = BillingPortalResource(this);
   late final checkoutSessions = CheckoutSessionsResource(this);
   late final customers = CustomersResource(this);
+  late final embedDomains = EmbedDomainsResource(this);
   late final events = EventsResource(this);
   late final fees = FeesResource(this);
   late final invoices = InvoicesResource(this);

@@ -1,6 +1,6 @@
 name: mercy_pay
 description: La bibliothèque Dart officielle de l'API Mercy Pay, pour vos serveurs Dart. Paiements mobile money et carte, webhooks signés.
-version: 0.1.0
+version: 0.2.0
 homepage: https://docs.mercy-pay.com
 repository: https://github.com/mercy-pay/mercy-pay-dart
 issue_tracker: https://github.com/mercy-pay/mercy-pay-dart/issues

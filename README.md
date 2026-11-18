@@ -83,6 +83,27 @@ Toutes les erreurs de l'API héritent de `ApiException` (`status`, `type`, `code
 
 Une coupure réseau, un `429` ou une erreur `5xx` sont retentés deux fois. Chaque `POST` porte une `Idempotency-Key`, la même à chaque tentative : un paiement ou un retrait n'est jamais créé en double.
 
+## Attendre le résultat
+
+Pour un script ou un test, attendez qu'un paiement ait un statut final :
+
+```dart
+final payment = await mercyPay.payments.waitForFinalStatus(id, timeout: const Duration(minutes: 1));
+final session = await mercyPay.checkoutSessions.waitForCompletion(sessionId);
+```
+
+La lecture se répète, de plus en plus espacée. Passé le délai, `WaitTimeoutException` donne le dernier état dans `last`. Sur un serveur en production, préférez le webhook `payment.succeeded`.
+
+## Sandbox et catalogue
+
+Une clé `mp_sandbox_…` ne touche pas à l'argent réel. Les opérateurs, les pays et les types d'événements sont dans `MercyPayCatalog`, et le numéro de test qui produit un résultat se lit ainsi :
+
+```dart
+final phone = await mercyPay.testHelpers.mobileMoneyNumber(MercyPayCatalog.orangeCmr, 'insufficient_balance');
+```
+
+Les résultats possibles : `succeeded`, `pending`, `payout_failed`, ou un `failure_code` comme `insufficient_balance`. La documentation de chaque méthode liste les paramètres qu'elle accepte.
+
 ## Développement
 
 `test/openapi.json` est une copie de la référence de l'API : `python3 tool/generate.py` régénère les ressources, et un test vérifie que chaque endpoint a sa méthode.
